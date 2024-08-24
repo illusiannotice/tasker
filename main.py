@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from task_end.task_struct import Task
-from db.crud import add_task_db, read_all, delete_task
+from db.crud import add_task_db, read_all, delete_task, update_task_state
 app = FastAPI()
 
 @app.get("/")
@@ -19,4 +19,9 @@ def get_tasks():
 @app.delete("/delete_task")
 def remove_task(task_name: str):
     delete_task(task_name)
+    return {"process": "succeed"}
+
+@app.post("/update_task_state")
+def update_state(task_name: str):
+    update_task_state(task_name)
     return {"process": "succeed"}
